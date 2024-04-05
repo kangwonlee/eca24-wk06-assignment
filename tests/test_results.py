@@ -1,6 +1,6 @@
 '''
 Unit tests for one step of the bisction method
-The function under test is wk05.wk05()
+The function under test is wk06.wk06()
 
 Would test the following:
 1. the binary point is smaller than root
@@ -31,7 +31,7 @@ sys.path.insert(
 )
 
 
-import wk05
+import wk06
 
 
 random.seed()
@@ -81,7 +81,7 @@ def test__choose_upper__not_found(root:float, f:Callable[[float], float], small_
     assert math.isclose(abs(x_lower - x_next), abs(x_upper - x_next))
     assert (f(x_lower) * f(x_upper)) < 0
 
-    d = wk05.wk05(f, x_lower, x_upper, epsilon=small_epsilon)
+    d = wk06.wk06(f, x_lower, x_upper, epsilon=small_epsilon)
 
     assert not d['found']
     assert math.isclose(d['x_upper'], x_next)
@@ -101,7 +101,7 @@ def test__choose_lower__not_found(root:float, f:Callable[[float], float], small_
     assert math.isclose(abs(x_lower - x_next), abs(x_upper - x_next))
     assert (f(x_lower) * f(x_upper)) < 0
 
-    d = wk05.wk05(f, x_lower, x_upper, epsilon=small_epsilon)
+    d = wk06.wk06(f, x_lower, x_upper, epsilon=small_epsilon)
 
     assert not d['found']
     assert math.isclose(d['x_upper'], x_upper)
@@ -127,7 +127,7 @@ def test__choose_upper__found(root:float, f:Callable[[float], float], big_epsilo
     assert math.isclose(abs(x_lower - x_next), abs(x_upper - x_next))
     assert (f(x_lower) * f(x_upper)) < 0
 
-    d = wk05.wk05(f, x_lower, x_upper, epsilon=big_epsilon)
+    d = wk06.wk06(f, x_lower, x_upper, epsilon=big_epsilon)
 
     assert d['found']
     assert math.isclose(d['x_upper'], x_next)
@@ -153,7 +153,7 @@ def test__choose_lower__found(root:float, f:Callable[[float], float], big_epsilo
     assert math.isclose(abs(x_lower - x_next), abs(x_upper - x_next))
     assert (f(x_lower) * f(x_upper)) < 0
 
-    d = wk05.wk05(f, x_lower, x_upper, epsilon=big_epsilon)
+    d = wk06.wk06(f, x_lower, x_upper, epsilon=big_epsilon)
 
     assert d['found']
     assert math.isclose(d['x_upper'], x_upper)
@@ -168,7 +168,7 @@ def test__both_below(root:float, f:Callable[[float], float], small_epsilon:float
     assert (f(x_lower) * f(x_upper)) > 0
 
     try:
-        d = wk05.wk05(f, x_lower, x_upper, epsilon=small_epsilon)
+        d = wk06.wk06(f, x_lower, x_upper, epsilon=small_epsilon)
     except ValueError:
         pass
     else:
@@ -184,7 +184,7 @@ def test__both_above(root:float, f:Callable[[float], float], small_epsilon:float
     assert (f(x_lower) * f(x_upper)) > 0
 
     try:
-        d = wk05.wk05(f, x_lower, x_upper, epsilon=small_epsilon)
+        d = wk06.wk06(f, x_lower, x_upper, epsilon=small_epsilon)
     except ValueError:
         pass
     else:
