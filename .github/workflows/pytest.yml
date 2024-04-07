@@ -37,4 +37,13 @@ jobs:
       run: python -m pytest tests/test_all_lines_in_the_function.py tests/test_grammar.py
     - name: Test results
       id: result-test
-      run: python -m pytest tests/test_results.py
+      run: python -m pytest -n auto tests/test_results.py
+    - name: upload pngs as artifacts
+      id: png-artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: plots
+        path: ./*.png
+        retention-days: 21
+        overwrite: true
