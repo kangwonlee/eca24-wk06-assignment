@@ -45,8 +45,8 @@ DC | m | DC component of the measured data<br>직류 성분
 | Argument<br>인자 | Data Type<br>자료형 | Description<br>설명 
 |:---:|:---:|---
 | `param` | numpy array | Array of current parameter values (A, zeta, w, phi, offset)<br>현재 매개변수 값 배열 (A, zeta, w, phi, offset)
-| `t` | numpy array | time samples of the experiment<br>각 가속도 값을 측정한 시간
-| `a` | numpy array | measured acceleration data<br>일정 시간 간격으로 측정된 가속도 데이터
+| `t` | numpy array | time samples of the experiment<br>각 값을 측정한 시간
+| `x` | numpy array | measured data<br>일정 시간 간격으로 측정된 데이터
 
 * Please remeber that the `param` array contains the following parameters in this order:<br>`param` 배열은 순서대로 다음 매개변수를 포함한다:
 
