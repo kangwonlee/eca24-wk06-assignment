@@ -18,7 +18,7 @@ $$ x(t) = A \cdot e^{-\zeta \omega t} \cdot sin\left(\left(\omega \sqrt{1 - \zet
 
 symbol<br>기호 | unit<br>단위 | Description<br>설명
 :---:|:---:|---
-x(t) | m/s/s | position of the mass at time t<br>시간 t 에서의 질량의 위치
+x(t) | m | position of the mass at time t<br>시간 t 에서의 질량의 위치
 A | m | Initial amplitude<br>초기 진폭
 $\zeta$ | $\cdot$ | Damping ratio<br>감쇠비
 $\omega$ | rad/sec | Undamped angular frequency<br> 비감쇠 각 주파수
