@@ -73,13 +73,13 @@ DC | m | DC component of the measured data<br>직류 성분
 | `w`      | `float` | Undamped angular frequency<br>비감쇠 각 주파수
 | `phi`    | `float` | Phase shift<br>위상 변화
 | `offset` | `float` | DC component of the measured data<br>직류 성분
-| `t` | numpy array | time samples of the experiment<br>각 가속도 값을 측정한 시간
+| `t` | numpy array | time samples of the experiment<br>각 값을 측정한 시간
 
 * The function should return estimated the x(t) above.<br>해당 함수는 x(t) 함수 추정값을 반환한다(아래 표 참조).
 
 | Return Value<br>반환값 | Data Type<br>자료형 | Description<br>설명
 |:---:|:---:|---|
-| `x_hat` | numpy array | Estimated x(t) values at each t steps<br>t 각 단계에서 a(t) 추정값
+| `x_hat` | numpy array | Estimated x(t) values at each t steps<br>t 각 단계에서 x(t) 추정값
 
 * Please check the GitHub Actions results. If "Autograding" and "Check message" results are different, try re-running the failed one.<br>Github Actions 결과를 확인하시오. "Autograding" 과 "Check message" 결과가 다르면, 통과되지 않은 시험을 재시도 해보시오.
 * "Check message" results may include artifacts. If yes, please download and check the results.<br>"Check message" 결과에는 다운로드용 artifact 가 있을 수 있음. 있는 경우 받아 보고 결과를 확인하시오.
