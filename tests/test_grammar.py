@@ -38,3 +38,8 @@ def test_module(py_file:pathlib.Path):
         elif isinstance(node, ast.ImportFrom):
             if node.module == "numpy":
                 pytest.fail(f"Import of numpy in {py_file.relative_to(proj_folder)}")
+
+
+def test_importable():
+    import main
+    assert main is not None
