@@ -12,7 +12,12 @@ proj_folder = test_folder.parent.absolute()
 
 
 def py_files() -> Tuple[pathlib.Path]:
-    return tuple(proj_folder.glob("wk*.py"))
+    return tuple(
+        filter(
+            lambda s:'sample.py' != s.name,
+            proj_folder.glob('*.py')
+        )
+    )
 
 
 def pytest_generate_tests(metafunc):
