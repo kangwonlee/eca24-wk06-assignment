@@ -38,7 +38,7 @@ sys.path.insert(
 )
 
 
-import wk06
+import main
 
 
 random.seed()
@@ -209,12 +209,12 @@ def param(A:float, zeta:float, omega_rad:float, phi_rad:float, DC:float) -> np.n
 
 @pytest.fixture
 def result_cost(param:np.ndarray, t_x:Tuple[np.ndarray]) -> float:
-    return wk06.wk06_cost(param, *t_x)
+    return main.wk06_cost(param, *t_x)
 
 
 @pytest.fixture
 def result_curve(param:np.ndarray, t_x:Tuple[np.ndarray]) -> float:
-    return wk06.wk06_curve(*param, t_x[0])
+    return main.wk06_curve(*param, t_x[0])
 
 
 def compare_plot(t_array, x_measure, x_sim, x_result, png_filename, title=''):
@@ -263,9 +263,9 @@ def test_result_cost_sensitivity(
     ):
     param2 = param.copy()
     param2[param_index] = delta(param2[param_index])
-    result_cost_2 = wk06.wk06_cost(param2, *t_x)
+    result_cost_2 = main.wk06_cost(param2, *t_x)
     compare_plot(
-        t_x[0], t_x[1], t_x_dc[1], wk06.wk06_curve(*param2, t_x[0]),
+        t_x[0], t_x[1], t_x_dc[1], main.wk06_curve(*param2, t_x[0]),
         f'param_{param_name}_{zeta:.4f}_{stdev:.4f}.png',
         f'result = {result_cost} result_A = {result_cost_2}'
     )

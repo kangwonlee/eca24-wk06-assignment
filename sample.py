@@ -5,7 +5,7 @@ import scipy.optimize as so
 import scipy.signal as ss
 
 
-import wk06
+import main
 
 
 def get_2nd_order_system(m_kg=1.0, k_Nm=1000.0, c_Nms=5.0,):
@@ -44,7 +44,7 @@ def main():
     ]
 
     result = so.minimize(
-        wk06.wk06_cost,
+        main.wk06_cost,
         x0=np.array([0.8, 0.05, 40.0, 0.6, 0.1]),
         args=(t_sec, x_m),
         bounds=bounds
@@ -54,7 +54,7 @@ def main():
 
     param = result.x
 
-    x_m_final = wk06.wk06_curve(*param, t_sec)
+    x_m_final = main.wk06_curve(*param, t_sec)
 
     plt.plot(t_sec, x_m, label='measurement')
     plt.plot(t_sec, x_m_final, label='fitting result')
