@@ -11,8 +11,11 @@ Would test the following:
 4. both lower end upper bounds are larger than root
 '''
 
+import cProfile
+import io
 import math
 import pathlib
+import pstats
 import random
 import sys
 
@@ -285,6 +288,28 @@ def test_result_curve(
     compare_plot(t_x_dc[0], t_x[1], t_x_dc[1], result_curve, png_filename)
 
     nt.assert_allclose(result_curve, t_x_dc[1], err_msg=f"please check {png_filename} (possibly in the Artifact)")
+
+
+def run_cProfile():
+    param = np.array([1.0, 0.1, 1.0, 0.0, 0.0])
+    t_x = np.linspace(0, 10, 1001), np.sin(np.linspace(0, 10, 1001))
+
+    main.wk06_cost(param, *t_x)
+    main.wk06_curve(*param, t_x[0])
+
+
+@pytest.mark.parametrize("solver_name", ['odeint', 'ode', 'solve_ivp'])
+def test_no_ode_solver_used(solver_name):
+    with cProfile.Profile() as pr:
+        run_cProfile()
+
+    output = io.StringIO()
+    ps = pstats.Stats(pr, stream=output).sort_stats('tottime')
+
+    for k in ps.stats:
+        function_path = pathlib.Path(k[0]).resolve()
+        if ('scipy' in function_path.parts) and ('integrate' in function_path.parts):
+            assert k[-1] != solver_name, f'Probably this assignment would not need {k[-1]}()'
 
 
 if "__main__" == __name__:
