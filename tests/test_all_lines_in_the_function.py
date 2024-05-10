@@ -31,7 +31,7 @@ def test_function_only_in_py_file(py_file:pathlib.Path):
 def git_log() -> Tuple[str]:
     return tuple(
         subprocess.check_output(
-            ['git', 'log', '-1', '--pretty=format"%h%x09%an%x09%ad%x09%s"'],
+            ['git', 'log', '--pretty=format"%h%x09%an%x09%ad%x09%s"'],
             encoding='utf-8'
         ).splitlines()
     )
