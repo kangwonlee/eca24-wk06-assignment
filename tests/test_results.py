@@ -245,7 +245,7 @@ def test_cost_function_returns_float_value(param:np.ndarray, result_cost:float):
 
 
 def test_cost_function_returns_a_valid_number(param:np.ndarray, result_cost:float):
-    assert math.isnan(result_cost) == False, (
+    assert np.isfinite(result_cost) == False, (
         f'The cost function returned an invalid number : {result_cost:g} param = {param}\n'
         f"비용 함수 결과 {result_cost:g} 가 유효하지 않은 숫자임 : 입력매개변수 = {param}\n"
     )
