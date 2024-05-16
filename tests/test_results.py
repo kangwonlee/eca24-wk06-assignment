@@ -283,7 +283,7 @@ def test_result_cost_sensitivity(
     )
     assert result_cost_2 > result_cost, (
         f'result={result_cost:g} when param = {param} is not smaller than result2={result_cost_2:g} when param = {param2}'
-        f'매개변수가 {param} 인 경우의 비용함수 {result_cost:g} 에 비해 {param2} 인 경우의 비용 함수 {result_cost_2:g} 가 더 작아져야 함'
+        f'매개변수가 {param2} 인 경우의 비용함수 {result_cost_2:g} 에 비해 {param} 인 경우의 비용 함수 {result_cost:g} 가 더 작아져야 함'
     )
 
 
@@ -319,8 +319,8 @@ def test_result_curve__values(
     compare_plot(t_x_dc[0], t_x[1], t_x_dc[1], result_curve, png_filename)
 
     message = (
-        f"please check {png_filename} (possibly in the Artifact) param={param}\n"
-        f"{png_filename}을 확인 바람 (아마도 Artifact에 있음) 입력매개변수 = {param}"
+        f"The curve function returned results different from the expected. Please check {png_filename} (possibly in the Artifact) param={param}\n"
+        f"곡선 계산 함수의 반환값이 예상과 다름. {png_filename}을 확인 바람 (아마도 Artifact에 있음) 입력매개변수 = {param}"
     )
     nt.assert_allclose(result_curve, t_x_dc[1], err_msg=message)
 
