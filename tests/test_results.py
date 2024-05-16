@@ -287,19 +287,42 @@ def test_result_cost_sensitivity(
     )
 
 
-def test_result_curve(
+def test_result_curve_type(
+        param:np.ndarray, result_curve:float,
+    ):
+    assert isinstance(result_curve, (np.ndarray, list, tuple)), (
+        f'The curve function returned a {type(result_curve)}, '
+        'not one of (np.ndarray, list, tuple) : '
+        f'param = {param} result = {result_curve} \n'
+        f'곡선 계산 함수의 반환값의 형이 (np.ndarray, list, tuple) 중 하나가 아님: '
+        '입력매개변수 = {param}, 결과 = {result_curve}'
+    )
+
+
+def test_result_curve_dimension(
+        param:np.ndarray, result_curve:float,
+        t_x_dc:Tuple[np.ndarray],
+    ):
+    assert len(result_curve) == len(t_x_dc[0]), (
+        f'The curve function returned {len(result_curve)} elements but expected {len(t_x_dc[0])} instead. param = {param}\n'
+        f'곡선 계산 함수의 반환값에 요소 {len(result_curve)} 개가 포함되어 있었으나 {len(t_x_dc[0])} 개로 예상되었었음. 입력 매개변수 = {param}'
+    )
+
+
+def test_result_curve__values(
         param:np.ndarray, result_curve:float,
         t_x:Tuple[np.ndarray],
         t_x_dc:Tuple[np.ndarray],
         zeta:float, stdev:float,
     ):
-    assert isinstance(result_curve, (np.ndarray, list, tuple)), f'param = {param}, result={result_curve}'
-    assert len(result_curve) == len(t_x_dc[0]), f'param = {param}, len(result)={len(result_curve)}, len(expected)={len(t_x_dc[0])}'
-
     png_filename = f'test_result_curve_{zeta:.4f}_{stdev:.4f}.png'
     compare_plot(t_x_dc[0], t_x[1], t_x_dc[1], result_curve, png_filename)
 
-    nt.assert_allclose(result_curve, t_x_dc[1], err_msg=f"please check {png_filename} (possibly in the Artifact)")
+    message = (
+        f"please check {png_filename} (possibly in the Artifact) param={param}\n"
+        f"{png_filename}을 확인 바람 (아마도 Artifact에 있음) 입력매개변수 = {param}"
+    )
+    nt.assert_allclose(result_curve, t_x_dc[1], err_msg=message)
 
 
 def run_cProfile():
