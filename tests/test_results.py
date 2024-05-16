@@ -237,16 +237,25 @@ def compare_plot(t_array, x_measure, x_sim, x_result, png_filename, title=''):
     plt.close()
 
 
-def test_result_cost__is_float(param:np.ndarray, result_cost:float):
-    assert isinstance(result_cost, float), f'param = {param}, result={result_cost}'
+def test_cost_function_returns_float_value(param:np.ndarray, result_cost:float):
+    assert isinstance(result_cost, float), (
+        f'The cost function returned a non-float : {result_cost:g} param = {param}\n'
+        f"비용 함수 결과 {result_cost:g} 가 float가 아님 : 입력매개변수 = {param}"
+    )
 
 
-def test_result_cost__is_not_nan(param:np.ndarray, result_cost:float):
-    assert math.isnan(result_cost) == False, f'param = {param}, result={result_cost} is Not a Number'
+def test_cost_function_returns_a_valid_number(param:np.ndarray, result_cost:float):
+    assert math.isnan(result_cost) == False, (
+        f'The cost function returned an invalid number : {result_cost:g} param = {param}\n'
+        f"비용 함수 결과 {result_cost:g} 가 유효하지 않은 숫자임 : 입력매개변수 = {param}\n"
+    )
 
 
-def test_result_cost__positive(param:np.ndarray, result_cost:float):
-    assert result_cost >= 0.0, f'param = {param}, result={result_cost} is negative'
+def test_cost_function_returns_a_non_negative_number(param:np.ndarray, result_cost:float):
+    assert result_cost >= 0.0, (
+        f'The function returned a negative value : {result_cost:g} param = {param}.\n'
+        f'비용 함수 결과 {result_cost:g} 가 음수임 : 입력매개변수 = {param}.'
+    )
 
 
 @pytest.mark.parametrize(
@@ -270,9 +279,12 @@ def test_result_cost_sensitivity(
     compare_plot(
         t_x[0], t_x[1], t_x_dc[1], main.wk06_curve(*param2, t_x[0]),
         f'param_{param_name}_{zeta:.4f}_{stdev:.4f}.png',
-        f'result = {result_cost} result_A = {result_cost_2}'
+        f'result = {result_cost:g} result_A = {result_cost_2}'
     )
-    assert result_cost_2 > result_cost, f', result={result_cost} when param = {param} is not smaller than result2={result_cost_2} when param = {param2}'
+    assert result_cost_2 > result_cost, (
+        f'result={result_cost:g} when param = {param} is not smaller than result2={result_cost_2:g} when param = {param2}'
+        f'매개변수가 {param} 인 경우의 비용함수 {result_cost:g} 에 비해 {param2} 인 경우의 비용 함수 {result_cost_2:g} 가 더 작아져야 함'
+    )
 
 
 def test_result_curve(
@@ -281,7 +293,7 @@ def test_result_curve(
         t_x_dc:Tuple[np.ndarray],
         zeta:float, stdev:float,
     ):
-    assert isinstance(result_curve, (np.ndarray, list, tuple)), f'param = {param}, result={result_cost}'
+    assert isinstance(result_curve, (np.ndarray, list, tuple)), f'param = {param}, result={result_curve}'
     assert len(result_curve) == len(t_x_dc[0]), f'param = {param}, len(result)={len(result_curve)}, len(expected)={len(t_x_dc[0])}'
 
     png_filename = f'test_result_curve_{zeta:.4f}_{stdev:.4f}.png'
