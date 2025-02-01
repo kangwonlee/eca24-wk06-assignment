@@ -106,22 +106,14 @@ jobs:
       if: always()
       timeout-minutes: 2
 
-    - name: upload pngs as artifacts
-      id: png-artifacts
+    - name: upload artifacts
+      id: artifacts
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: plots
-        path: ./*.png
-        retention-days: 21
-        overwrite: true
-
-    - name: upload json reports as artifacts
-      id: json-artifacts
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: reports
-        path: ./*.json
+        name: artifacts
+        path: |
+          ./*.png
+          ./*.json
         retention-days: 21
         overwrite: true
