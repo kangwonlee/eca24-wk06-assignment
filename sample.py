@@ -5,7 +5,7 @@ import scipy.optimize as so
 import scipy.signal as ss
 
 
-import main
+import exercise
 
 
 def get_2nd_order_system(m_kg=1.0, k_Nm=1000.0, c_Nms=5.0,):
@@ -30,7 +30,7 @@ def get_2nd_order_system_response(t0_sec=0.0, te_sec=2., sample_rate_Hz=10000):
     return t_sec, x_m, q
 
 
-def main():
+def exercise():
     t_sec, x_m, q = get_2nd_order_system_response()
     # try to fit the response with the function wk06.wk06
 
@@ -44,7 +44,7 @@ def main():
     ]
 
     result = so.minimize(
-        main.wk06_cost,
+        exercise.wk06_cost,
         x0=np.array([0.8, 0.05, 40.0, 0.6, 0.1]),
         args=(t_sec, x_m),
         bounds=bounds
@@ -54,7 +54,7 @@ def main():
 
     param = result.x
 
-    x_m_final = main.wk06_curve(*param, t_sec)
+    x_m_final = exercise.wk06_curve(*param, t_sec)
 
     plt.plot(t_sec, x_m, label='measurement')
     plt.plot(t_sec, x_m_final, label='fitting result')
@@ -66,4 +66,4 @@ def main():
 
 
 if "__main__" == __name__:
-    main()
+    exercise()
