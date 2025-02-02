@@ -28,11 +28,11 @@ DC | m | DC component of the measured data<br>직류 성분
 
 ## Instructions<br>지시사항
 
-* Modify `main.py` file only<br>`main.py` 파일만 변경하시오.
+* Modify `exercise.py` file only<br>`exercise.py` 파일만 변경하시오.
 * Write two python functions.<br>파이썬 함수 두개를 작성하시오.
     * Function `wk06_cost()` will calculate and return the cost function.<br>함수 `wk06_cost()` 은(는) 비용 함수를 계산하여 반환하시오.
     * Function `wk06_curve()` will evaluate and return the a(t) above.<br>함수 `wk06_curve()` 는 위 $x(t)$ 를 계산하여 반환하시오.
-* Within the `main.py` file, every code line should be inside a function.<br>`main.py` 파일 내의 모든 코드 행은 함수 내에 있어야 함.
+* Within the `exercise.py` file, every code line should be inside a function.<br>`exercise.py` 파일 내의 모든 코드 행은 함수 내에 있어야 함.
 * Please use `numpy` and `scipy`.<br>`numpy` 와 `scipy` 를 사용하시오.
 * To visualize (for example on the Colab), use `matplotlib`.<br>시각화를 위해 (예를 들어 Colab 상에서) `matplotlib` 를 사용하시오.
 * Do not use global variables. Use function arguments and return values.<br>전역 변수를 사용하지 마시오. 함수의 인자와 반환 값을 사용하시오.
