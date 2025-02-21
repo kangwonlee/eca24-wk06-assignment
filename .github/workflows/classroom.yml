@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Pull Docker Image
-      run: docker pull ghcr.io/kangwonlee/edu-scipy:0.1.4 # Pull your Docker image
+      run: docker pull ghcr.io/kangwonlee/edu-scipy:0.1.5 # Pull your Docker image
 
     - name: Set report file names
       id: json
@@ -32,8 +32,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: check syntax
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.syntax }} tests/test_syntax.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.syntax }} tests/test_syntax.py"
         timeout: 1
         max-score: 2
 
@@ -42,8 +42,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: check style
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.style }} tests/test_style.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.style }} tests/test_style.py"
         timeout: 1
         max-score: 1
 
@@ -52,8 +52,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: test results
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.4 python3 -m pytest -n auto --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.results }} tests/test_results.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest -n auto --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.results }} tests/test_results.py"
         timeout: 2
         max-score: 2
 
