@@ -17,6 +17,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+
     - name: Pull Docker Image
       run: docker pull ghcr.io/kangwonlee/edu-scipy:0.1.5 # Pull your Docker image
 
