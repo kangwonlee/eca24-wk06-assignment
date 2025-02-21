@@ -17,6 +17,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: login to GHCR
+      run : echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u kangwonlee --password-stdin
+
     - name: Pull Docker Image
       run: docker pull ghcr.io/kangwonlee/edu-scipy:0.1.5 # Pull your Docker image
 
