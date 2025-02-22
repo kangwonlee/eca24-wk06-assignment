@@ -68,7 +68,7 @@ DC | m | DC component of the measured data<br>직류 성분
 
 | Argument<br>인자 | Data Type<br>자료형 | Description<br>설명 
 |:---:|:---:|---
-| `A`      | `float` | Array of current parameter values (A, zeta, w, phi, offset)<br>현재 매개변수 값 배열 (A, zeta, w, phi, offset)
+| `A`      | `float` | Initial amplitude<br>초기 진폭
 | `zeta`   | `float` | Damping ratio<br>감쇠비
 | `w`      | `float` | Undamped angular frequency<br>비감쇠 각 주파수
 | `phi`    | `float` | Phase shift<br>위상 변화
