@@ -25,7 +25,7 @@ jobs:
         password: ${{ secrets.CR_PAT }}
 
     - name: Pull Docker Image
-      run: docker pull ghcr.io/kangwonlee/edu-scipy:0.1.5 # Pull your Docker image
+      run: docker pull ghcr.io/kangwonlee/edu-scipy:0.2.4 # Pull your Docker image
 
     - name: Set report file names
       id: json
@@ -39,8 +39,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: check syntax
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.syntax }} tests/test_syntax.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.syntax }} tests/test_syntax.py"
         timeout: 1
         max-score: 2
 
@@ -49,8 +49,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: check style
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.style }} tests/test_style.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pytest --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.style }} tests/test_style.py"
         timeout: 1
         max-score: 1
 
@@ -59,8 +59,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: test results
-        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pip list"
-        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.1.5 python3 -m pytest -n auto --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.results }} tests/test_results.py"
+        setup-command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pip list"
+        command: "docker run --rm --user 1001:1001 -v $(pwd):/app ghcr.io/kangwonlee/edu-scipy:0.2.4 python3 -m pytest -n auto --json-report --json-report-indent=4 --json-report-file=/app/${{ steps.json.outputs.results }} tests/test_results.py"
         timeout: 2
         max-score: 2
 
@@ -74,15 +74,17 @@ jobs:
         runners: check-syntax,check-style,test-results
 
     - name: AI Tutor
-      uses: docker://ghcr.io/kangwonlee/gemini-python-tutor:latest
-      with:
-        report-files: ${{ steps.json.outputs.results }},${{ steps.json.outputs.syntax }},${{ steps.json.outputs.style }}
-        student-files: exercise.py
-        readme-path: README.md
-        api-key: ${{ secrets.GOOGLE_API_KEY }}
-        explanation-in: Korean
       id: ai-tutor
       if: always()
+      run: |
+        docker run --rm --user 1001:1001 -v $(pwd):/app/workspace \
+            --env INPUT_REPORT-FILES="workspace/${{ steps.json.outputs.results }},workspace/${{ steps.json.outputs.syntax }},workspace/${{ steps.json.outputs.style }}" \
+            --env INPUT_STUDENT-FILES="workspace/exercise.py" \
+            --env INPUT_README-PATH="workspace/README.md" \
+            --env INPUT_API-KEY="${{ secrets.GOOGLE_API_KEY }}" \
+            --env INPUT_EXPLANATION-IN="Korean" \
+            ghcr.io/kangwonlee/edu-scipy:0.2.4 \
+            python3 ai_tutor/entrypoint.py
       timeout-minutes: 2
 
     - name: upload artifacts
