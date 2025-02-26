@@ -1,6 +1,5 @@
 matplotlib
 numpy
-pandas
 pytest
 pytest-json-report
 pytest-xdist
