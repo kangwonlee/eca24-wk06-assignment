@@ -1,3 +1,4 @@
+import os
 import pathlib
 import subprocess
 
@@ -9,7 +10,13 @@ import pytest
 
 file_path = pathlib.Path(__file__)
 test_folder = file_path.parent.absolute()
-proj_folder = test_folder.parent.absolute()
+
+proj_folder = pathlib.Path(
+    os.getenv(
+        'STUDENT_CODE_FOLDER',
+        test_folder.parent.absolute()
+    )
+)
 
 
 def test_function_only_in_py_file(py_file:pathlib.Path):
@@ -32,7 +39,8 @@ def git_log() -> Tuple[str]:
     return tuple(
         subprocess.check_output(
             ['git', 'log', '--pretty=format"%h%x09%an%x09%ad%x09%s"'],
-            encoding='utf-8'
+            encoding='utf-8',
+            cwd=proj_folder,
         ).splitlines()
     )
 
